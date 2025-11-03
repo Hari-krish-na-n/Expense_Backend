@@ -10,10 +10,21 @@ const mime = require('mime-types');
 
 // Config
 const PORT = process.env.PORT || 3000;
-const FRONTEND_URLS = [
-  'https://elara-frontend.vercel.app', // your deployed frontend
-  'http://localhost:5173'              // for local testing
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://elara-frontend.vercel.app',
 ];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
+
 
 const DB_PATH = path.join(__dirname, 'db.json');
 
@@ -105,3 +116,4 @@ app.listen(PORT, () => {
   console.log(`✅ Backend running on port ${PORT}`);
   console.log(`🌐 Allowed origins: ${FRONTEND_URLS.join(', ')}`);
 });
+
