@@ -102,6 +102,6 @@ app.put('/api/plays/:id', (req, res) => {
 
 // Start
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
-  console.log(`CORS allowed from ${VITE_DEV}`);
+  console.log(`✅ Backend running on port ${PORT}`);
+  console.log(`🌐 Allowed origins: ${FRONTEND_URLS.join(', ')}`);
 });
